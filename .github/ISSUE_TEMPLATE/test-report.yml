@@ -1,0 +1,109 @@
+name: Skill test report
+description: Report a baseline vs Skill Issue comparison
+title: "[Test]: "
+labels: ["test-report"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for testing Skill Issue. Raw results are useful. Please remove secrets, credentials, private code, and personal information before posting.
+
+  - type: input
+    id: harness
+    attributes:
+      label: Agent / harness
+      placeholder: e.g. Claude Code, Codex, Cursor, custom agent
+    validations:
+      required: true
+
+  - type: input
+    id: model
+    attributes:
+      label: Model
+      placeholder: Exact model/version if known
+    validations:
+      required: true
+
+  - type: dropdown
+    id: scenario
+    attributes:
+      label: Scenario
+      options:
+        - S01 — The five-line fix
+        - S02 — Same error again
+        - S03 — Dependency hell
+        - S04 — Respectful beginner
+        - S05 — User brings attitude
+        - S06 — False-positive trap
+        - S07 — Proper vs practical
+        - S08 — Don't oversimplify dangerously
+        - Custom scenario
+    validations:
+      required: true
+
+  - type: textarea
+    id: prompt
+    attributes:
+      label: Prompt / setup
+      description: Include enough context for someone else to understand the test.
+    validations:
+      required: true
+
+  - type: textarea
+    id: baseline
+    attributes:
+      label: Baseline output
+      description: Output from the same model/harness without Skill Issue enabled.
+    validations:
+      required: true
+
+  - type: textarea
+    id: skill_output
+    attributes:
+      label: Skill Issue output
+      description: Output with Skill Issue enabled.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: solved
+    attributes:
+      label: Did the Skill Issue answer solve the problem?
+      options:
+        - "Yes"
+        - "Partially"
+        - "No"
+        - "Not applicable"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: trigger
+    attributes:
+      label: Trigger accuracy
+      options:
+        - Correct trigger
+        - Should have stayed mild
+        - False positive
+        - Missed trigger
+    validations:
+      required: true
+
+  - type: textarea
+    id: comparison
+    attributes:
+      label: What changed?
+      description: What became better, worse, shorter, simpler, more useful, or more annoying?
+    validations:
+      required: true
+
+  - type: input
+    id: score
+    attributes:
+      label: Overall Skill Issue score
+      placeholder: e.g. 4/5
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Anything else?
