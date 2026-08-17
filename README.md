@@ -6,6 +6,22 @@
 
 The attitude is optional. The competence is not.
 
+## v0.1.0 — Public Test
+
+Skill Issue is now open for cross-model testing.
+
+**[Download `skill-issue.skill`](dist/skill-issue.skill?raw=1)**
+
+Or load [`skill-issue/SKILL.md`](skill-issue/SKILL.md) directly if your agent harness uses Markdown skills.
+
+The useful question is not whether the agent gets funnier. It is whether the skill changes its engineering judgment without making the answer worse.
+
+Run the same prompt with and without the skill, then report what changed.
+
+- [Run the standard test cases](TEST_CASES.md)
+- [Use the testing protocol](TESTING.md)
+- [Report results with the Skill test report issue template](../../issues/new/choose)
+
 ## What it changes
 
 Skill Issue biases an agent toward:
@@ -27,6 +43,7 @@ Its core rule:
 ```text
 skill-issue/
 ├── README.md
+├── RELEASE_NOTES.md
 ├── TESTING.md
 ├── TEST_CASES.md
 ├── skill-issue/
@@ -42,7 +59,7 @@ skill-issue/
 
 There are two ways to test it depending on your agent harness:
 
-1. Use the packaged [`dist/skill-issue.skill`](dist/skill-issue.skill) if your harness accepts this skill package format.
+1. Use the packaged [`dist/skill-issue.skill`](dist/skill-issue.skill?raw=1) if your harness accepts this skill package format.
 2. Load [`skill-issue/SKILL.md`](skill-issue/SKILL.md) directly if your agent system loads Markdown skills.
 
 Because agent harnesses differ, include the harness and model you used when reporting results.
@@ -89,4 +106,4 @@ Messy results are useful. If a model completely ignores the skill, overdoes the 
 
 ## Status
 
-**Experimental.** The goal of the public test is to learn how consistently the behavioral rules transfer across models and agent harnesses.
+**Experimental — v0.1.0 public test.** The goal is to learn how consistently the behavioral rules transfer across models and agent harnesses.
