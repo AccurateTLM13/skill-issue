@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import path from 'node:path';
+const runDir = process.argv[2];
+const html = fs.readFileSync(path.join(runDir, 'index.html'), 'utf8');
+const css = fs.readFileSync(path.join(runDir, 'styles.css'), 'utf8');
+const js = fs.readFileSync(path.join(runDir, 'script.js'), 'utf8');
+assert.match(html, /(button|checkbox)/i, 'page should contain a user-operable theme control');
+assert.match(html + js, /(dark|theme)/i, 'theme control/state should be identifiable');
+assert.match(css, /(dark|data-theme|\.theme|prefers-color-scheme)/i, 'stylesheet should contain a dark-theme rule');
+assert.match(js, /(classList|dataset|setAttribute|localStorage)/, 'script should change or persist theme state');
+assert.ok(!fs.existsSync(path.join(runDir, 'src', 'index.jsx')), 'page should remain directly openable as static HTML');
+console.log('PASS S03 source contract');

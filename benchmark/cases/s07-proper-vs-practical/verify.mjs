@@ -1,0 +1,12 @@
+import assert from 'node:assert/strict';
+import path from 'node:path';
+import { spawnSync } from 'node:child_process';
+const runDir = process.argv[2];
+const script = `const {API_BASE_URL}=require(${JSON.stringify(path.join(runDir,'config.js'))}); process.stdout.write(String(API_BASE_URL));`;
+const dev = spawnSync(process.execPath, ['-e', script], { encoding:'utf8', env:{...process.env, API_BASE_URL:'https://dev.example.test'} });
+const prod = spawnSync(process.execPath, ['-e', script], { encoding:'utf8', env:{...process.env, API_BASE_URL:'https://prod.example.test'} });
+assert.equal(dev.status, 0, dev.stderr);
+assert.equal(prod.status, 0, prod.stderr);
+assert.equal(dev.stdout, 'https://dev.example.test');
+assert.equal(prod.stdout, 'https://prod.example.test');
+console.log('PASS S07');
