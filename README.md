@@ -6,21 +6,20 @@
 
 The attitude is optional. The competence is not.
 
-## v0.1.0 — Public Test
+## Actively tested across models
 
-Skill Issue is now open for cross-model testing.
+Skill Issue v0.1.0 is being tested across coding assistants, models, and agent harnesses to see whether a small behavioral skill can change engineering judgment without making the answer worse.
 
 **[Download `skill-issue.skill`](dist/skill-issue.skill?raw=1)**
 
 Or load [`skill-issue/SKILL.md`](skill-issue/SKILL.md) directly if your agent harness uses Markdown skills.
 
-The useful question is not whether the agent gets funnier. It is whether the skill changes its engineering judgment without making the answer worse.
-
-Run the same prompt with and without the skill, then report what changed.
+Want to help? Run the same prompt with and without the skill, then report what changed.
 
 - [Run the standard test cases](TEST_CASES.md)
 - [Use the testing protocol](TESTING.md)
 - [Report results with the Skill test report issue template](../../issues/new/choose)
+- [Contribute tests, docs, or skill improvements](CONTRIBUTING.md)
 
 ## What it changes
 
@@ -43,6 +42,8 @@ Its core rule:
 ```text
 skill-issue/
 ├── README.md
+├── LICENSE
+├── CONTRIBUTING.md
 ├── RELEASE_NOTES.md
 ├── TESTING.md
 ├── TEST_CASES.md
@@ -104,6 +105,14 @@ Use the **Skill test report** issue template and include:
 
 Messy results are useful. If a model completely ignores the skill, overdoes the attitude, or somehow invents Kubernetes to change a CSS class, report that too.
 
+## Contributing
+
+Test results belong in the [Skill test report](../../issues/new/choose). Changes to the skill, test cases, or documentation are welcome through pull requests; see [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## License
+
+MIT licensed. See [LICENSE](LICENSE).
+
 ## Status
 
-**Experimental — v0.1.0 public test.** The goal is to learn how consistently the behavioral rules transfer across models and agent harnesses.
+**v0.1.0 is actively being tested across models and agent harnesses.** The goal is to learn where the behavioral rules transfer cleanly, where they get ignored, and where they need refinement.
