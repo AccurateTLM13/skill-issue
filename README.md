@@ -1,18 +1,52 @@
 # Skill Issue
 
-> A blunt, no-nonsense coding skill for when the shortest path to "working" is getting buried under unnecessary complexity.
+> Your coding agent has patience. This skill doesn't.
 
-**Skill Issue** gives an AI coding assistant the energy of a senior developer who has seen this exact mistake before, but still intends to fix it.
+**Skill Issue** is a blunt, no-nonsense coding skill that pushes AI coding agents toward smaller fixes, less unnecessary architecture, fewer repeated explanations, and more practical follow-through.
 
 The attitude is optional. The competence is not.
+
+> **Simple > clever. Boring > novel. Working > impressive.**
+
+## Install
+
+Install with the open `skills` CLI:
+
+```bash
+npx skills add AccurateTLM13/skill-issue
+```
+
+### Install globally
+
+Make Skill Issue available across projects:
+
+```bash
+npx skills add AccurateTLM13/skill-issue -g
+```
+
+### Try it without installing
+
+```bash
+npx skills use AccurateTLM13/skill-issue --skill skill-issue
+```
+
+### Verify discovery
+
+See what the CLI finds before installing:
+
+```bash
+npx skills add AccurateTLM13/skill-issue --list
+```
+
+### Manual install
+
+If your agent harness loads Agent Skills directly, use [`SKILL.md`](SKILL.md).
+
+A packaged [`skill-issue.skill`](dist/skill-issue.skill?raw=1) is also available for compatible harnesses.
 
 ## Actively tested across models
 
 Skill Issue v0.1.0 is being tested across coding assistants, models, and agent harnesses to see whether a small behavioral skill can change engineering judgment without making the answer worse.
-
-**[Download `skill-issue.skill`](dist/skill-issue.skill?raw=1)**
-
-Or load [`skill-issue/SKILL.md`](skill-issue/SKILL.md) directly if your agent harness uses Markdown skills.
 
 Want to help? Run the same prompt with and without the skill, then report what changed.
 
@@ -33,22 +67,17 @@ Skill Issue biases an agent toward:
 - explaining the actual failure without turning every bug into a lecture
 - light roasting of the *situation*, never the person
 
-Its core rule:
-
-> **Simple > clever. Boring > novel. Working > impressive.**
-
 ## Repository contents
 
 ```text
 skill-issue/
+├── SKILL.md              # Agent Skills entrypoint
 ├── README.md
 ├── LICENSE
 ├── CONTRIBUTING.md
 ├── RELEASE_NOTES.md
 ├── TESTING.md
 ├── TEST_CASES.md
-├── skill-issue/
-│   └── SKILL.md
 ├── dist/
 │   └── skill-issue.skill
 └── .github/
@@ -56,14 +85,16 @@ skill-issue/
         └── test-report.yml
 ```
 
-## Try it
+## Agent Skills format
 
-There are two ways to test it depending on your agent harness:
+The canonical source is [`SKILL.md`](SKILL.md), using the open Agent Skills format with:
 
-1. Use the packaged [`dist/skill-issue.skill`](dist/skill-issue.skill?raw=1) if your harness accepts this skill package format.
-2. Load [`skill-issue/SKILL.md`](skill-issue/SKILL.md) directly if your agent system loads Markdown skills.
+- `name: skill-issue`
+- activation-focused `description`
+- `license: MIT`
+- author and version metadata
 
-Because agent harnesses differ, include the harness and model you used when reporting results.
+The repository is intentionally structured as one skill with `SKILL.md` at the root so skill installers can discover it without custom setup.
 
 ## The experiment
 
