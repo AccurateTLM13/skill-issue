@@ -4,35 +4,43 @@ This benchmark tests whether **Skill Issue changes engineering judgment without 
 
 It uses two kinds of cases:
 
-1. **Executable cases** — the agent receives a real tiny project, edits files, and must pass a verifier.
-2. **Behavioral cases** — the agent is scored on restraint, tone, repetition handling, and safety where a code change is not the point.
+1. **Executable cases** — the agent edits a real tiny project and must pass a verifier.
+2. **Behavioral cases** — the agent is scored on restraint, tone, repetition handling, and safety when a code change is not the point.
 
-The benchmark is intentionally separate from the root `SKILL.md`. For a baseline run, do **not** install or expose Skill Issue to the agent. For the Skill Issue run, use the same model, harness, prompt, and starting fixture with only the skill changed.
+## Isolation rule
+
+Baseline runs must not be able to discover the repo's root `SKILL.md`.
+
+`create-run.mjs` therefore creates working copies in a sibling directory outside the repo:
+
+```text
+../skill-issue-runs/<case>/<variant>/
+```
+
+The script prints the exact run path. Point the coding agent at that directory, not at the Skill Issue repository.
 
 ## Quick start
 
-Create a clean working copy for an executable case:
+Create a clean baseline copy:
 
 ```bash
 node benchmark/scripts/create-run.mjs s03-dependency-hell baseline
 ```
 
-Point your coding agent at the created directory and give it that case's `TASK.md` verbatim.
-
-After the agent finishes:
+Give the agent the copied `TASK.md` verbatim. After it finishes:
 
 ```bash
 node benchmark/scripts/verify-run.mjs s03-dependency-hell baseline
 node benchmark/scripts/measure-run.mjs s03-dependency-hell baseline
 ```
 
-Then repeat from a fresh copy with Skill Issue enabled:
+Then create a fresh Skill Issue copy:
 
 ```bash
 node benchmark/scripts/create-run.mjs s03-dependency-hell skill-issue
 ```
 
-Never reuse the baseline working directory for the Skill Issue run.
+Use the same model, harness, settings, and task with Skill Issue enabled. Never reuse a previous working directory.
 
 ## Cases
 
@@ -49,29 +57,28 @@ Never reuse the baseline working directory for the Skill Issue run.
 
 ## What counts as a win
 
-**Functional correctness is a gate, not a bonus.** A run that fails its verifier cannot win because it was shorter.
+**Functional correctness is a gate.** A run that fails its verifier cannot win because it changed fewer files or lines.
 
-After correctness, compare judgment signals such as:
+After correctness, compare:
 
-- files changed
-- files added
-- lines added/removed
-- dependencies added
+- files changed/added/removed
+- total line count before/after and net line-count change
+- dependencies before/after and dependencies added
 - build/config files introduced
 - unnecessary architecture or abstractions
 - whether the response stayed direct and useful
 
-## Suggested A/B protocol
+These are judgment signals, not an automatic score. A larger change can still be justified.
 
-1. Choose one exact model and one agent harness.
-2. Start a fresh baseline run with no Skill Issue available.
-3. Use the case task verbatim.
-4. Save the agent transcript and modified files.
-5. Run verification and measurement.
-6. Create a second fresh run from the untouched fixture.
-7. Enable Skill Issue and change nothing else.
-8. Use the exact same task.
-9. Save transcript, verify, and measure.
-10. Compare only after both runs are complete.
+## A/B protocol
+
+1. Lock one exact model and harness.
+2. Create a fresh baseline run with no Skill Issue available.
+3. Use the task verbatim and save the transcript.
+4. Verify and measure.
+5. Create a fresh Skill Issue run from the untouched fixture.
+6. Change only whether Skill Issue is enabled.
+7. Use the same task, save the transcript, verify, and measure.
+8. Compare only after both runs are complete.
 
 See each case's `README.md` for case-specific instructions.
