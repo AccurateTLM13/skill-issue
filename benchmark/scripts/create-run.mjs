@@ -4,6 +4,8 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const benchmarkRoot = path.resolve(__dirname, '..');
+const repoRoot = path.resolve(benchmarkRoot, '..');
+const runsRoot = path.resolve(repoRoot, '..', 'skill-issue-runs');
 const [caseName, variant] = process.argv.slice(2);
 
 if (!caseName || !variant) {
@@ -18,7 +20,7 @@ if (!/^[a-z0-9-]+$/.test(variant)) {
 
 const caseDir = path.join(benchmarkRoot, 'cases', caseName);
 const fixtureDir = path.join(caseDir, 'fixture');
-const runDir = path.join(benchmarkRoot, 'runs', caseName, variant);
+const runDir = path.join(runsRoot, caseName, variant);
 
 if (!fs.existsSync(fixtureDir)) {
   console.error(`No executable fixture found for case: ${caseName}`);
