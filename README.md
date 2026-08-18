@@ -46,7 +46,7 @@ Correctness outranks the bit. A shorter answer that is wrong is still wrong.
 
 The repo includes a small A/B benchmark with real fixtures and objective verifiers. Executable cases must work before simplicity counts as a win; behavioral cases test restraint, tone, repetition handling, and safety.
 
-Generated runs are created in a sibling `skill-issue-runs/` directory **outside this repo** so the baseline agent cannot accidentally discover the root `SKILL.md`.
+Generated runs are created in a sibling `skill-issue-runs/` directory **outside this repo** so the baseline agent cannot accidentally discover the root `SKILL.md`. The create script prints the exact path to use.
 
 Example with S03:
 
