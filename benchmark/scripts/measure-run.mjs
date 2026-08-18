@@ -4,6 +4,8 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const benchmarkRoot = path.resolve(__dirname, '..');
+const repoRoot = path.resolve(benchmarkRoot, '..');
+const runsRoot = path.resolve(repoRoot, '..', 'skill-issue-runs');
 const [caseName, variant] = process.argv.slice(2);
 
 if (!caseName || !variant) {
@@ -12,7 +14,7 @@ if (!caseName || !variant) {
 }
 
 const fixtureDir = path.join(benchmarkRoot, 'cases', caseName, 'fixture');
-const runDir = path.join(benchmarkRoot, 'runs', caseName, variant);
+const runDir = path.join(runsRoot, caseName, variant);
 
 function walk(root) {
   const out = new Map();
@@ -34,6 +36,20 @@ function lineCount(buf) {
   return buf.toString('utf8').split(/\r?\n/).length;
 }
 
+function dependencyNames(root) {
+  const packagePath = path.join(root, 'package.json');
+  if (!fs.existsSync(packagePath)) return new Set();
+  try {
+    const pkg = JSON.parse(fs.readFileSync(packagePath, 'utf8'));
+    return new Set([
+      ...Object.keys(pkg.dependencies || {}),
+      ...Object.keys(pkg.devDependencies || {})
+    ]);
+  } catch {
+    return new Set();
+  }
+}
+
 const before = walk(fixtureDir);
 const after = walk(runDir);
 const all = new Set([...before.keys(), ...after.keys()]);
@@ -49,14 +65,9 @@ for (const file of all) {
   if (a && b && !a.equals(b)) changed++;
 }
 
-let dependencies = 0;
-const packagePath = path.join(runDir, 'package.json');
-if (fs.existsSync(packagePath)) {
-  try {
-    const pkg = JSON.parse(fs.readFileSync(packagePath, 'utf8'));
-    dependencies = Object.keys({ ...(pkg.dependencies || {}), ...(pkg.devDependencies || {}) }).length;
-  } catch {}
-}
+const dependenciesBefore = dependencyNames(fixtureDir);
+const dependenciesAfter = dependencyNames(runDir);
+const dependenciesAdded = [...dependenciesAfter].filter(name => !dependenciesBefore.has(name)).sort();
 
 const buildFiles = ['package.json','vite.config.js','vite.config.ts','webpack.config.js','tailwind.config.js','tailwind.config.ts','tsconfig.json'];
 const introducedBuildFiles = buildFiles.filter(name => !fs.existsSync(path.join(fixtureDir, name)) && fs.existsSync(path.join(runDir, name)));
@@ -69,7 +80,9 @@ console.log(JSON.stringify({
   filesRemoved: removed,
   totalLinesBefore: linesBefore,
   totalLinesAfter: linesAfter,
-  netLineChange: linesAfter - linesBefore,
-  dependenciesPresent: dependencies,
+  netLineCountChange: linesAfter - linesBefore,
+  dependenciesBefore: dependenciesBefore.size,
+  dependenciesAfter: dependenciesAfter.size,
+  dependenciesAdded,
   introducedBuildFiles
 }, null, 2));
