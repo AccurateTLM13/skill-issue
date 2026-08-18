@@ -4,6 +4,8 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const benchmarkRoot = path.resolve(__dirname, '..');
+const repoRoot = path.resolve(benchmarkRoot, '..');
+const runsRoot = path.resolve(repoRoot, '..', 'skill-issue-runs');
 const [caseName, variant] = process.argv.slice(2);
 
 if (!caseName || !variant) {
@@ -12,7 +14,7 @@ if (!caseName || !variant) {
 }
 
 const caseDir = path.join(benchmarkRoot, 'cases', caseName);
-const runDir = path.join(benchmarkRoot, 'runs', caseName, variant);
+const runDir = path.join(runsRoot, caseName, variant);
 const verifier = path.join(caseDir, 'verify.mjs');
 
 const result = spawnSync(process.execPath, [verifier, runDir], { stdio: 'inherit' });
