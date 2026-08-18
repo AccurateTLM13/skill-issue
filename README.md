@@ -48,12 +48,32 @@ A packaged [`skill-issue.skill`](dist/skill-issue.skill?raw=1) is also available
 
 Skill Issue v0.1.0 is being tested across coding assistants, models, and agent harnesses to see whether a small behavioral skill can change engineering judgment without making the answer worse.
 
-Want to help? Run the same prompt with and without the skill, then report what changed.
+Want to help? Run the same task with and without the skill, then report what changed.
 
-- [Run the standard test cases](TEST_CASES.md)
+- [Run the benchmark](benchmark/README.md)
+- [See the standard test cases](TEST_CASES.md)
 - [Use the testing protocol](TESTING.md)
 - [Report results with the Skill test report issue template](../../issues/new/choose)
 - [Contribute tests, docs, or skill improvements](CONTRIBUTING.md)
+
+## Benchmark
+
+Skill Issue includes a real A/B benchmark, not just hypothetical prompts.
+
+Executable cases give the agent a tiny project, require it to modify real files, and then run an objective verifier. Behavioral cases test restraint, repetition handling, tone, and safety when code execution is not the point.
+
+```bash
+node benchmark/scripts/create-run.mjs s03-dependency-hell baseline
+# run your coding agent against the created working directory
+node benchmark/scripts/verify-run.mjs s03-dependency-hell baseline
+node benchmark/scripts/measure-run.mjs s03-dependency-hell baseline
+```
+
+Repeat from a **fresh fixture** with Skill Issue enabled. Only compare simplicity and scope after both runs satisfy the functional requirement.
+
+The measurement script reports signals such as files changed, files added, net line change, dependencies present, and build/config files introduced.
+
+[Read the benchmark methodology →](benchmark/README.md)
 
 ## What it changes
 
@@ -78,6 +98,14 @@ skill-issue/
 ├── RELEASE_NOTES.md
 ├── TESTING.md
 ├── TEST_CASES.md
+├── benchmark/
+│   ├── README.md
+│   ├── scripts/
+│   │   ├── create-run.mjs
+│   │   ├── verify-run.mjs
+│   │   └── measure-run.mjs
+│   └── cases/
+│       └── ...
 ├── dist/
 │   └── skill-issue.skill
 └── .github/
@@ -100,21 +128,25 @@ The repository is intentionally structured as one skill with `SKILL.md` at the r
 
 Don't only ask whether the tone is entertaining.
 
-Run the same technical problem twice:
+For executable cases, run the same real coding task twice:
 
-1. **Baseline** — your normal coding agent without Skill Issue.
-2. **Skill Issue** — same model, same prompt, same context, with Skill Issue enabled.
+1. **Baseline** — identical fixture, normal coding agent, no Skill Issue available.
+2. **Skill Issue** — fresh identical fixture, same model/harness/settings, Skill Issue enabled.
 
-Then compare:
+Correctness is the gate. If a run does not pass its verifier, it cannot win because it changed fewer lines.
+
+After both runs work, compare:
 
 - Did it find a smaller fix?
 - Did it avoid needless architecture or dependencies?
+- How many files and lines changed?
+- Did it introduce a build system or configuration files?
 - Did it reduce lecture-mode?
-- Did it correctly notice repeated questions?
 - Was the tone useful without becoming hostile?
-- Most importantly: **did the answer still solve the problem?**
 
-Start with the scenarios in [TEST_CASES.md](TEST_CASES.md) and use [TESTING.md](TESTING.md) for the scoring method.
+Behavioral cases remain conversational when the behavior itself is the thing under test.
+
+Start with [the benchmark](benchmark/README.md) and use [TESTING.md](TESTING.md) for the scoring method.
 
 ## What this is not
 
@@ -131,6 +163,8 @@ Use the **Skill test report** issue template and include:
 - scenario
 - baseline result
 - Skill Issue result
+- verifier result when applicable
+- measurement output when applicable
 - whether the problem was actually solved
 - what got better or worse
 
@@ -138,7 +172,7 @@ Messy results are useful. If a model completely ignores the skill, overdoes the 
 
 ## Contributing
 
-Test results belong in the [Skill test report](../../issues/new/choose). Changes to the skill, test cases, or documentation are welcome through pull requests; see [CONTRIBUTING.md](CONTRIBUTING.md).
+Test results belong in the [Skill test report](../../issues/new/choose). Changes to the skill, benchmark cases, or documentation are welcome through pull requests; see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 
