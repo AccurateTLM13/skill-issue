@@ -1,0 +1,147 @@
+[
+  {
+    "case": "s01-five-line-fix",
+    "phase": "untouched negative control",
+    "exit": 1,
+    "output": "node:internal/modules/run_main:107\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: second immediate submission should be blocked\n\ntrue !== false\n\n    at file:///workspace/scratch/9e140dbdefd1/skill-issue/benchmark/cases/s01-five-line-fix/verify.mjs:27:10 {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: true,\n  expected: false,\n  operator: 'strictEqual',\n  diff: 'simple'\n}\n\nNode.js v24.19.0\n"
+  },
+  {
+    "case": "s01-five-line-fix",
+    "phase": "maintainer smoke repair (not A/B)",
+    "exit": 0,
+    "output": "PASS S01\n"
+  },
+  {
+    "case": "s01-five-line-fix",
+    "measurement": {
+      "case": "s01-five-line-fix",
+      "variant": "verifier-smoke",
+      "filesChanged": 1,
+      "filesAdded": 0,
+      "filesRemoved": 0,
+      "totalLinesBefore": 9,
+      "totalLinesAfter": 11,
+      "netLineCountChange": 2,
+      "dependenciesBefore": 0,
+      "dependenciesAfter": 0,
+      "dependenciesAdded": [],
+      "introducedBuildFiles": []
+    }
+  },
+  {
+    "case": "s02-same-error",
+    "phase": "untouched negative control",
+    "exit": 1,
+    "output": "node:internal/modules/run_main:107\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: node:internal/modules/cjs/loader:1520\n  throw err;\n  ^\n\nError: Cannot find module './Header'\nRequire stack:\n- /workspace/scratch/9e140dbdefd1/skill-issue-runs/s02-same-error/verifier-smoke/index.js\n    at Module._resolveFilename (node:internal/modules/cjs/loader:1517:15)\n    at wrapResolveFilename (node:internal/modules/cjs/loader:1071:27)\n    at defaultResolveImplForCJSLoading (node:internal/modules/cjs/loader:1095:10)\n    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1122:12)\n    at Module._load (node:internal/modules/cjs/loader:1294:5)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n    at Module.require (node:internal/modules/cjs/loader:1617:12)\n    at require (node:internal/modules/helpers:153:16)\n    at Object.<anonymous> (/workspace/scratch/9e140dbdefd1/skill-issue-runs/s02-same-error/verifier-smoke/index.js:1:16)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14) {\n  code: 'MODULE_NOT_FOUND',\n  requireStack: [\n    '/workspace/scratch/9e140dbdefd1/skill-issue-runs/s02-same-error/verifier-smoke/index.js'\n  ]\n}\n\nNode.js v24.19.0\n\n\n1 !== 0\n\n    at file:///workspace/scratch/9e140dbdefd1/skill-issue/benchmark/cases/s02-same-error/verify.mjs:5:8\n    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)\n    at async node:internal/modules/esm/loader:643:26\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: 1,\n  expected: 0,\n  operator: 'strictEqual',\n  diff: 'simple'\n}\n\nNode.js v24.19.0\n"
+  },
+  {
+    "case": "s02-same-error",
+    "phase": "maintainer smoke repair (not A/B)",
+    "exit": 0,
+    "output": "PASS S02\n"
+  },
+  {
+    "case": "s02-same-error",
+    "measurement": {
+      "case": "s02-same-error",
+      "variant": "verifier-smoke",
+      "filesChanged": 1,
+      "filesAdded": 0,
+      "filesRemoved": 0,
+      "totalLinesBefore": 7,
+      "totalLinesAfter": 7,
+      "netLineCountChange": 0,
+      "dependenciesBefore": 0,
+      "dependenciesAfter": 0,
+      "dependenciesAdded": [],
+      "introducedBuildFiles": []
+    }
+  },
+  {
+    "case": "s03-dependency-hell",
+    "phase": "untouched negative control",
+    "exit": 1,
+    "output": "node:internal/modules/run_main:107\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: page should contain a user-operable theme control\n    at file:///workspace/scratch/9e140dbdefd1/skill-issue/benchmark/cases/s03-dependency-hell/verify.mjs:8:8\n    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)\n    at async node:internal/modules/esm/loader:643:26\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: '<!doctype html>\\n' +\n    '<html lang=\"en\">\\n' +\n    '<head>\\n' +\n    '  <meta charset=\"utf-8\">\\n' +\n    '  <meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">\\n' +\n    '  <title>Tiny Notes</title>\\n' +\n    '  <link rel=\"stylesheet\" href=\"styles.css\">\\n' +\n    '</head>\\n' +\n    '<body>\\n' +\n    '  <main>\\n' +\n    '    <h1>Tiny Notes</h1>\\n' +\n    '    <p>A deliberately boring static page.</p>\\n' +\n    '  </main>\\n' +\n    '  <script src=\"script.js\"></script>\\n' +\n    '</body>\\n' +\n    '</html>\\n',\n  expected: /(button|checkbox)/i,\n  operator: 'match',\n  diff: 'simple'\n}\n\nNode.js v24.19.0\n"
+  },
+  {
+    "case": "s03-dependency-hell",
+    "phase": "maintainer smoke repair (not A/B)",
+    "exit": 0,
+    "output": "PASS S03 source contract\n"
+  },
+  {
+    "case": "s03-dependency-hell",
+    "measurement": {
+      "case": "s03-dependency-hell",
+      "variant": "verifier-smoke",
+      "filesChanged": 3,
+      "filesAdded": 0,
+      "filesRemoved": 0,
+      "totalLinesBefore": 26,
+      "totalLinesAfter": 31,
+      "netLineCountChange": 5,
+      "dependenciesBefore": 0,
+      "dependenciesAfter": 0,
+      "dependenciesAdded": [],
+      "introducedBuildFiles": []
+    }
+  },
+  {
+    "case": "s05-weird-total",
+    "phase": "untouched negative control",
+    "exit": 1,
+    "output": "node:internal/modules/run_main:107\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n'101.25' !== 11.25\n\n    at file:///workspace/scratch/9e140dbdefd1/skill-issue/benchmark/cases/s05-weird-total/verify.mjs:7:8\n    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)\n    at async node:internal/modules/esm/loader:643:26\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {\n  generatedMessage: true,\n  code: 'ERR_ASSERTION',\n  actual: '101.25',\n  expected: 11.25,\n  operator: 'strictEqual',\n  diff: 'simple'\n}\n\nNode.js v24.19.0\n"
+  },
+  {
+    "case": "s05-weird-total",
+    "phase": "maintainer smoke repair (not A/B)",
+    "exit": 0,
+    "output": "PASS S05\n"
+  },
+  {
+    "case": "s05-weird-total",
+    "measurement": {
+      "case": "s05-weird-total",
+      "variant": "verifier-smoke",
+      "filesChanged": 1,
+      "filesAdded": 0,
+      "filesRemoved": 0,
+      "totalLinesBefore": 6,
+      "totalLinesAfter": 6,
+      "netLineCountChange": 0,
+      "dependenciesBefore": 0,
+      "dependenciesAfter": 0,
+      "dependenciesAdded": [],
+      "introducedBuildFiles": []
+    }
+  },
+  {
+    "case": "s07-proper-vs-practical",
+    "phase": "untouched negative control",
+    "exit": 1,
+    "output": "node:internal/modules/run_main:107\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 'https://api.example.com'\n- 'https://dev.example.test'\n           ^\n\n    at file:///workspace/scratch/9e140dbdefd1/skill-issue/benchmark/cases/s07-proper-vs-practical/verify.mjs:10:8\n    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)\n    at async node:internal/modules/esm/loader:643:26\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {\n  generatedMessage: true,\n  code: 'ERR_ASSERTION',\n  actual: 'https://api.example.com',\n  expected: 'https://dev.example.test',\n  operator: 'strictEqual',\n  diff: 'simple'\n}\n\nNode.js v24.19.0\n"
+  },
+  {
+    "case": "s07-proper-vs-practical",
+    "phase": "maintainer smoke repair (not A/B)",
+    "exit": 0,
+    "output": "PASS S07\n"
+  },
+  {
+    "case": "s07-proper-vs-practical",
+    "measurement": {
+      "case": "s07-proper-vs-practical",
+      "variant": "verifier-smoke",
+      "filesChanged": 1,
+      "filesAdded": 0,
+      "filesRemoved": 0,
+      "totalLinesBefore": 3,
+      "totalLinesAfter": 3,
+      "netLineCountChange": 0,
+      "dependenciesBefore": 0,
+      "dependenciesAfter": 0,
+      "dependenciesAdded": [],
+      "introducedBuildFiles": []
+    }
+  }
+]

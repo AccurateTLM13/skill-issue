@@ -24,3 +24,10 @@ For executable cases, the agent now receives a **real tiny project** and must pr
 Behavioral cases remain conversational when the behavior itself is what is being tested.
 
 See [`benchmark/README.md`](benchmark/README.md) for the A/B procedure.
+
+## v0.2 regression coverage
+
+Run `node --test tests/contracts.test.mjs` for static policy and package checks.
+Use [behavior acceptance cases](tests/BEHAVIOR_CASES.md) for actual agent evaluation.
+Static passes do not prove activation or model compliance. Record failed and
+skipped checks; report implementation and verification separately.
