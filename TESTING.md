@@ -103,3 +103,10 @@ Choose one:
 ## Test report
 
 Open a GitHub issue using the **Skill test report** template. Include raw outputs plus verifier and measurement results when applicable. Redact secrets, private code, credentials, and personal information first.
+
+## v0.2 regression coverage
+
+Run `node --test tests/contracts.test.mjs` for static policy and package checks.
+Use [behavior acceptance cases](tests/BEHAVIOR_CASES.md) for actual agent evaluation.
+Static passes do not prove activation or model compliance. Record failed and
+skipped checks; report implementation and verification separately.

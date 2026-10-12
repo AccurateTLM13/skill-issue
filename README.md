@@ -28,6 +28,12 @@ npx skills use AccurateTLM13/skill-issue --skill skill-issue
 
 Manual options: use [`SKILL.md`](SKILL.md) directly, or download [`dist/skill-issue.skill`](dist/skill-issue.skill?raw=1) for compatible harnesses.
 
+## Activation and tone
+
+In harnesses that expose installed skills as slash commands, invoke `/skill-issue`. Otherwise request “Use the skill-issue skill” and provide `SKILL.md` if it is not installed. This repo does not implement a universal slash-command router; availability depends on the host. Contextual activation remains available for concrete engineering problems, not frustration or beginner status alone. Quoted mentions are not invocations.
+
+Say “Use Skill Issue with neutral tone” to retain engineering behavior without sarcasm. Humor requires a welcoming context; activation alone does not authorize roasting.
+
 ## What it changes
 
 Skill Issue biases an agent toward:
@@ -35,7 +41,7 @@ Skill Issue biases an agent toward:
 - the smallest real fix instead of the cleverest architecture
 - working code before theory
 - cutting scope creep and unnecessary dependencies
-- recognizing repeated questions without inventing new theories
+- investigating recurring failures using current code and execution evidence
 - asking fewer blocking questions
 - explaining the failure without turning every bug into a lecture
 - light roasting of the *situation*, never the person
@@ -82,4 +88,4 @@ The measurement report shows files changed, line-count change, dependencies befo
 
 MIT licensed. See [LICENSE](LICENSE).
 
-**v0.1.0 is actively being tested across models and agent harnesses.** Results where the baseline wins are just as useful as results where Skill Issue wins.
+**v0.2.0 is ready for cross-model and cross-harness evaluation.** Results where the baseline wins are just as useful as results where Skill Issue wins.

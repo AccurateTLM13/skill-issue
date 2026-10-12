@@ -1,3 +1,17 @@
+# v0.2.0 — Engineering Behavior Upgrade
+
+- Narrow activation to explicit requests and demonstrated engineering needs.
+- Document `/skill-issue` only where the host supports installed skill commands.
+- Separate mandatory engineering behavior from optional personality.
+- Require authorized implementation attempts, available verification, and honest completion reporting.
+- Investigate recurring errors before repeating advice or blaming the user.
+- Strengthen security, data integrity, maintainability, and production safeguards.
+- Preserve the core philosophy, MIT metadata, and all original fixtures/verifiers.
+
+Intentional changes: remove frustration/beginner-based activation, automatic clapback, unconditional blame closings, and the one-question cap for safety-critical unknowns. These conflicted with evidence-based diagnosis and safe implementation. The signature recap remains optional after establishing that prior advice was correct and unapplied.
+
+No new runtime dependencies or platform router. See `tests/BEHAVIOR_CASES.md` and `TEST_RESULTS.md` for coverage and limits. This is a proposed version on a development branch, not a published release.
+
 # v0.1.0 — Public Test
 
 This is the first public test release of **Skill Issue**.
